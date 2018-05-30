@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>com.mckoi.runtime - Startup classes for Mckoi</title>
+</head>
+<body>
+<p>
+The main (starting) class for a Mckoi database server.
+
+<a name="start_server">
+<h3>Starting the Server</h3>
+
+The database server is
+<a href="../../../../UseServer.html">started</a>
+by running
+<code>java -jar mckoidb.jar</code>
+
+<p>
+The META-INF/MANIFEST file in the jar file specifies the starting class as
+<a href="McKoiDBMain.html">McKoiDBMain</a> in this package, so java starts up
+the server application at the
+<a href="McKoiDBMain.html#main(java.lang.String[])">main</a>
+method of McKoiDBMain.
+
+<p>
+The main method prints a banner, parses options, loads the config file,
+and eventually calls
+<a href="BootMain.html#boot(java.io.File, java.util.ResourceBundle)">
+BootMain.boot</a> to complete the startup.
+BootMain creates an instance of
+<a href="../database/Database.html">Database</a>, initializes it,
+and finally
+<a href="../database/jdbcserver/package-summary.html#service_initialization">
+starts the service</a> that listens for and handles client connections.
+
+</body>
+</html>

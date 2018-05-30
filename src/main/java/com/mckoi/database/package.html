@@ -1,0 +1,208 @@
+<html>
+<head>
+<title>com.mckoi.database - The core database classes for Mckoi</title>
+</head>
+<body>
+<p>
+The core database classes for Mckoi.
+
+<a name="data_representation">
+<h3>Data Representation</h3></a>
+
+<p>
+A database is represented by a single
+<a href="TableDataConglomerate.html">TableDataConglomerate</a>,
+which contains a collection of
+<a href="MasterTableDataSource.html">MasterTableDataSource</a> objects,
+each of which represents a single table, including both committed and
+uncommitted rows.
+
+<p>
+Access to a table is usually through the
+<a href="TableDataSource.html">TableDataSource</a> interface, or its subclass
+<a href="MutableTableDataSource.html">MutableTableDataSource</a>
+The
+<a href="MasterTableDataSource.html">MasterTableDataSource</a> objects
+wrap themselves in an instance of the private class
+<a href="MasterTableDataSource.MMutableTableDataSource.html">
+MasterTableDataSource.MMutableTableDataSource</a>, which implements
+MutableTableDataSource.
+
+<p>
+The format of a table is defined by
+<a href="DataTableDef.html">DataTableDef</a>, which is returned by
+<a href="TableDataSource.html#getDataTableDef()">
+TableDataSource.getDataTableDef</a>,
+and which does not change during the lifetime of the table;
+if the table format is changed, a new MasterTableDataSource is created
+within the <a href="Transaction.html">Transaction</a> with the new format,
+and the data and unchanged columns from the old table
+are copied to the new one.
+The format of a column is defined by
+<a href="DataTableColumnDef.html">DataTableColumnDef</a>.
+
+<p>
+Modifications to a row of a table are handled by a
+<a href="RowData.html">RowData</a>, which carries a reference to the
+<a href="TableDataSource.html">TableDataSource</a> which it modified,
+and from which data is retrieved.
+Each column within the row is represented by a
+<a href="DataCell.html">DataCell</a>,
+which is either retrieved from the table or created by
+<a href="DataCellFactory.html">DataCellFactory</a>.
+
+<a name="transactions">
+<h3>Transactions</h3></a>
+
+<p>
+A database can be associated with one or more simultaneous
+<a href="Transaction.html">Transaction</a> objects.
+All changes to the data in the database are done through Transactions.
+The current set of open Transaction objects is managed by an
+<a href="OpenTransactionList.html">OpenTransactionList</a> object,
+which is pointed to by both the
+<a href="TableDataConglomerate.html">TableDataConglomerate</a>
+and all of the
+<a href="MasterTableDataSource.html">MasterTableDataSource</a>
+objects.
+
+<p>
+Changes to a row are handled by creating a new row in the
+<a href="MasterTableDataSource.html">MasterTableDataSource</a>
+containing the changed
+data plus any old data which is unchanged.
+The data for the modified row are kept in a
+<a href="RowData.html">RowData</a>, which references a
+<a href="QueryContext.html">QueryContext</a>, which references a
+<a href="DatabaseConnection.html">DatabaseConnection</a>, which references a
+<a href="Transaction.html">Transaction</a>, which is the Transaction
+under which that change was made.
+Each field of the row is represented by a
+<a href="DataCell.html">DataCell</a>.
+
+<p>
+When an application
+<a href="jdbc/package-summary.html#execute_request">issues an SQL request</a>
+to update the database, it eventually makes it down to
+<a href="interpret/Statement.html#evaluate()">Statement.evaluate</a>,
+for example in <a href="interpret/Insert.html">Insert</a>.
+That evaluate method uses its
+<a href="DatabaseConnection.html">DatabaseConnection</a> to get a
+<a href="DataTable.html">DataTable</a> for a table name,
+which is a wrapper around the
+<a href="MutableTableDataSource.html">MutableTableDataSource</a>
+returned by the DatabaseConnection's
+<a href="Transaction.html">Transaction</a> for the table of that name.
+The MutableTableDataSource (created by
+<a href="Transaction.html#getTable(com.mckoi.database.TableName)">
+Transaction.getTable</a>) is in turn a wrapper around a
+<a href="MasterTableDataSource.html">MasterTableDataSource</a>
+created using the private class
+<a href="MasterTableDataSource.MMutableTableDataSource.html">
+MasterTableDataSource.MMutableTableDataSource</a>.
+The <a href="interpret/Statement.html">Statement</a> uses its
+<a href="DataTable.html">DataTable</a> to create a
+<a href="RowData.html">RowData</a>, then passes it to its
+<a href="DataTable.html">DataTable</a>, which passes it to the
+<a href="MutableTableDataSource.html">MutableTableDataSource</a>,
+which passes it to the
+<a href="MasterTableDataSource.html">MasterTableDataSource</a>,
+which actually makes the change.
+
+<p>
+The <a href="Transaction.html">Transaction</a> maintains a
+<a href="TransactionJournal.html">TransactionJournal</a>, in which
+are listed all of the tables which have been changed by the Transaction.
+
+<p>
+Eventually the
+<a href="Transaction.html">Transaction</a> is closed
+(<a href="Transaction.html#closeAndCommit()">committed</a> or
+<a href="Transaction.html#closeAndRollback()">rolled back</a>),
+which is handled by the
+<a href="TableDataConglomerate.html">TableDataConglomerate</a>
+(<a href="file:/u/src.net/mckoi0.93pr1/docs/api/com/mckoi/database/TableDataConglomerate.html#processCommit(com.mckoi.database.Transaction, java.util.ArrayList, java.util.ArrayList, java.util.ArrayList, com.mckoi.database.TransactionJournal)">
+processCommit</a> or
+<a href="file:/u/src.net/mckoi0.93pr1/docs/api/com/mckoi/database/TableDataConglomerate.html#processRollback(com.mckoi.database.Transaction, java.util.ArrayList, com.mckoi.database.TransactionJournal)">
+processRollback</a>),
+which, for each MasterTableDataSource, gets a
+<a href="MasterTableJournal.html">MasterTableJournal</a> for it from the
+<a href="TransactionJournal.html">TransactionJournal</a>
+specifying what changes have been made in that table
+from this Transaction, and tells that
+<a href="MasterTableDataSource.html">MasterTableDataSource</a>
+to commit or roll back the changes in that MasterTableJournal.
+
+<a name="locking">
+<h3>Locking</h3></a>
+
+<p>
+Locking is used to control concurrent access by two requests in the same
+<a href="Transaction.html">Transaction</a>.
+This is handled during
+<a href="jdbcserver/package-summary.html#query_execution">query execution</a>
+in
+<a href="jdbcserver/JDBCDatabaseInterface.html#execQuery(com.mckoi.database.jdbc.SQLQuery)">
+JDBCDatabaseInterface.execQuery</a>
+
+<p>
+Each <a href="DatabaseConnection.html">DatabaseConnection</a>
+has associated with it a single
+<a href="LockingMechanism.html">LockingMechanism</a> object,
+which is used to
+<a href="LockingMechanism.html#setMode(int)">lock</a> and
+<a href="LockingMechanism.html#finishMode(int)">unlock</a>
+the DatabaseConnection's
+<a href="Transaction.html">Transaction</a> as a whole.
+The active lock is represented by a
+<a href="LockHandle.html">LockHandle</a>, which is returned by
+<a href="LockingMechanism.html#lockTables(com.mckoi.database.DataTable[], com.mckoi.database.DataTable[])">
+LockingMechanism.lockTables</a>,
+and which is passed back to
+<a href="LockingMechanism.html#unlockTables(com.mckoi.database.LockHandle)">
+LockingMechanism.unlockTables</a> to drop the lock.
+
+<p>
+A lock on an individual table is represented by a <a href="Lock.html">Lock</a>,
+which is kept in a <a href="LockingQueue.html">LockingQueue</a>,
+which maintains the link to the locked <a href="DataTable.html">table</a>.
+
+<a name="update_sequence">
+<h3>Update Sequence</h3></a>
+
+<p>
+When a change is made to the database (insert, update, or delete),
+the following list shows the sequence in which various steps are taken:
+<ul>
+<li>Check to see if user has privileges to make the change
+    (<a href="interpret/Insert.html#evaluate()">Insert.evaluate</a>,
+    <a href="interpret/UpdateTable.html#evaluate()">UpdateTable.evaluate</a>,
+    <a href="interpret/Delete.html#evaluate()">Delete.evaluate</a>)
+<li>Check to see if the table is read-only
+    (<a href="MasterTableDataSource.MMutableTableDataSource.html#addRow(com.mckoi.database.RowData)">
+    MasterTableDataSource.MMutableTableDataSource.addRow</a>,
+    <a href="MasterTableDataSource.MMutableTableDataSource.html#updateRow(int, com.mckoi.database.RowData)">
+    updateRow</a>,
+    <a href="MasterTableDataSource.MMutableTableDataSource.html#removeRow(int)">
+    removeRow</a>)
+<li>Mark the old row for removal
+    (<a href="MasterTableDataSource.MMutableTableDataSource.html#updateRow(int, com.mckoi.database.RowData)">
+    MasterTableDataSource.MMutableTableDataSource.updateRow</a>,
+    <a href="MasterTableDataSource.MMutableTableDataSource.html#removeRow(int)">
+    removeRow</a>)
+<li>Add the new data and write the changes out to disk
+    (<a href="MasterTableDataSource.html#addRow(com.mckoi.database.RowData)">
+    MasterTableDataSource.addRow</a>)
+<li>Check table constraints for removal of old data
+    (MasterTableDataSource.MMutableTableDataSource calls
+    TableDataConglomerate.checkRemoveConstraintViolations)
+<li>Check field constraints on the new data
+    (MasterTableDataSource.MMutableTableDataSource calls
+    TableDataConglomerate.checkFieldConstraintViolations)
+<li>Check table constraints on the new data
+    (MasterTableDataSource.MMutableTableDataSource calls
+    TableDataConglomerate.checkAddConstraintViolations)
+</ul>
+
+</body>
+</html>

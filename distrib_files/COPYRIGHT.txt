@@ -1,0 +1,1 @@
+Mckoi SQL Database Copyright 2000-2018 Diehl and Associates, Inc.

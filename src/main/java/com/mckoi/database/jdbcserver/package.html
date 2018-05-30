@@ -1,0 +1,216 @@
+<html>
+<head>
+<title>com.mckoi.database.jdbcserver - Server and embedded-database classes</title>
+</head>
+<body>
+<p>
+Implementation of the DatabaseInterface interface,
+including classes to handle local (embedded) mode
+and remote (client/server) mode.
+<p>
+See <a href="../jdbc/DatabaseInterface.html">DatabaseInterface</a>.
+
+<a name="local_mode">
+<h3>Local (Embedded) mode</h3></a>
+
+When accessing a local database, the client uses an instance of
+<a href="LocalDatabaseInterface.html">LocalDatabaseInterface</a>
+(as set up while
+<a href="../jdbc/package-summary.html#establish_connection">
+Establishing a Connection</a>)
+to directly access the underlying database.
+See <a href="#local_queries">Local Queries</a>.
+
+<a name="remote_mode">
+<h3>Remote (Client/Server) mode</h3></a>
+
+When accessing a remote database,
+requests in the client are directed to an instance of
+<a href="JDBCDatabaseInterface.html">JDBCDatabaseInterface</a>
+(as set up while
+<a href="../jdbc/package-summary.html#establish_connection">
+Establishing a Connection</a>)
+to send the requests over a TCP connection to the database server.
+The server uses an instance of
+<a href="LocalDatabaseInterface.html">LocalDatabaseInterface</a>
+to execute SQL statements in local mode on behalf of the client.
+See <a href="#remote_queries">Remote Queries</a>.
+
+<a name="local_queries">
+<h3>Local Queries</h3></a>
+
+When an application is accessing a local database,
+or when considering query processing within the database server,
+SQL queries all go through
+<a href="LocalDatabaseInterface.html#execQuery(com.mckoi.database.jdbc.SQLQuery)">
+LocalDatabaseInterface.execQuery</a>.
+This method uses
+<a href="../DatabaseSystem.html#execute(com.mckoi.database.User, com.mckoi.database.DatabaseConnection, java.lang.Runnable)">
+com.mckoi.database.DatabaseSystem.execute</a>
+to execute the
+<a href="JDBCDatabaseInterface.html#execQuery(com.mckoi.database.jdbc.SQLQuery)">
+execQuery</a> method
+(see <a href="#query_execution">Query Execution</a>)
+of the contained
+<a href="JDBCDatabaseInterface.html">JDBCDatabaseInterface</a>
+in the first available
+<a href="../WorkerThread.html">WorkerThread</a>.
+The calling thread waits for the WorkerThread to finish and return a
+<a href="../jdbc/QueryResponse.html">QueryResponse</a>,
+which is used by the caller to set up a
+<a href="../jdbc/MResultSet.html">MResultSet</a>.
+
+<a name="remote_queries">
+<h3>Remote Queries</h3>
+
+When an application is running in remote mode,
+SQL queries are processed by the private ConnectionThread class within
+<a href="../jdbc/RemoteDatabaseInterface.html">
+com.mckoi.jdbc.RemoteDatabaseInterface</a>.
+The executeQuery method in this class writes the sql query string to
+the socket attached to the server and returns an integer ID for that
+sql request.
+This is followed by a call to the getCommand method, which blocks until
+it times out or until it gets a reply from the server for the right ID.
+If a reply is received, the first byte is decoded as a status byte.
+On success, an inner-class instance of
+<a href="../jdbc/QueryResponse.html">QueryResponse</a>
+is returned; on error, error info is read from the response and used
+to create and throw an exception.
+
+<p>
+Data is written to the server in the calling thread.
+There is a separate thread
+(an instance of the private class RemoteDatabaseInterface.ConnectionThread in
+<a href="../jdbc/RemoteDatabaseInterface.html">RemoteDatabaseInterface</a>)
+to read the data coming back from the server,
+which is placed into a buffer where it can be accessed by other threads.
+
+<a name="query_execution">
+<h3>Query Execution</h3></a>
+
+Queries in local mode and queries handled by the database server
+are both processed by
+<a href="JDBCDatabaseInterface.html#execQuery(com.mckoi.database.jdbc.SQLQuery)">
+JDBCDatabaseInterface.execQuery</a>.
+This method always runs in a
+<a href="../WorkerThread.html">WorkerThread</a>.
+The execQuery method takes these steps to execute the query:
+<ul>
+<li>Set user and connection data into the WorkerThread.
+<li>Output debug log info.
+<li>Record start time.
+<li>Parse sql statement into statement_tree, check cache.
+<li>Bind values for query parameters.
+<li>Prepare all expression in statement tree.
+<li>Convert to instance of some
+    <a href="../interpret/Statement.html">Statement</a> subclass
+    (such as
+    <a href="../interpret/Insert.html">Insert</a> or
+    <a href="../interpret/Delete.html">Delete</a>.)
+    These are all in the package
+    <a href="../interpret/package-summary.html">
+    com.mckoi.database.interpret</a>.
+<li>Set up <a href="../package-summary#locking">locking</a>.
+<li>Finish preparing statement.
+<li>Get list of tables to read and write.
+<li>Lock tables.
+<li>Evaluate the Statement using
+    <a href="../interpret/Statement.html#evaluate()">Statement.evaluate</a>.
+    This is different for each different type of Statement.
+<li>Place results into result set cache.
+<li>Unlock tables.
+<li>Check autoCommit, do commit or rollback if set.
+<li>Record end time.
+<li>Return
+    <a href="../jdbc/QueryResponse.html">QueryResponse</a>
+    info (an instance of the private class JDIQueryResponse in
+    <a href="JDBCDatabaseInterface.html">JDBCDatabaseInterface</a>).
+</ul>
+
+<a name="service_initialization">
+<h3>Service Initialization</h3></a>
+
+After the database server has been started
+and initialized its database, it begins listening for client connections.
+This happens in <a href="TCPServer.html#start(java.util.ResourceBundle)">
+TCPServer.start</a>.
+The server creates a
+<a href="ConnectionPoolServer.html">ConnectionPoolServer</a>,
+either a
+<a href="SingleThreadedConnectionPoolServer.html">
+SingleThreadedConnectionPoolServer</a> (when running in single-thead mode) or a
+<a href="MultiThreadedConnectionPoolServer.html">
+MultiThreadedConnectionPoolServer</a> (when running in multi-thread mode).
+The start method starts a listener thread and then returns.
+
+<p>
+The server listener thread sits in a loop blocked waiting for new connections.
+When a new connection is accepted, the server creates a new
+<a href="JDBCDatabaseInterface.html">JDBCDatabaseInterface</a>
+for that connection, wraps it in a
+<a href="TCPJDBCServerConnection.html">TCPJDBCServerConnection</a>,
+and adds that to the
+<a href="ConnectionPoolServer.html">ConnectionPoolServer</a>.
+
+<a name="client_requests">
+<h3>Client Requests</h3></a>
+
+<p>
+In single-thread mode,
+the SingleThreadedConnectionPoolServer handles all client reads
+in a single thread.
+For each connection with a request, it calls
+<a href="TCPJDBCServerConnection.html#processRequest()">
+TCPJDBCServerConnection.processRequest</a> on that connection,
+using
+<a href="../DatabaseSystem.html#execute(com.mckoi.database.User, com.mckoi.database.DatabaseConnection, java.lang.Runnable)">
+com.mckoi.database.DatabaseSystem.execute</a>
+to execute it in a WorkerThread.
+
+<p>
+In multi-thread mode,
+the MultiThreadedConnectionPoolServer starts a separate thread to handle
+reads for each connection.
+Each thread blocks until it has a request available, then calls
+<a href="TCPJDBCServerConnection.html#processRequest()">
+TCPJDBCServerConnection.processRequest</a> on that connection,
+using
+<a href="../DatabaseSystem.html#execute(com.mckoi.database.User, com.mckoi.database.DatabaseConnection, java.lang.Runnable)">
+com.mckoi.database.DatabaseSystem.execute</a>
+to execute it in a WorkerThread.
+
+<p>
+In either single-thread or multi-thread mode, client requests end up getting
+passed to
+<a href="TCPJDBCServerConnection.html#processRequest()">
+TCPJDBCServerConnection.processRequest</a>.
+This method reads the command data, then calls
+<a href="JDBCProcessor.html#processJDBCCommand(byte[])">
+JDBCProcessor.processJDBCCommand</a> with those bytes.
+That method calls
+<a href="JDBCProcessor.html#processQuery(byte[])">
+JDBCProcessor.processQuery</a>, which looks at the first byte of the
+requests to see what it is.
+If the request type is a database query (as opposed to retrieval of
+part of a ResultSet), it creates a
+<a href="../jdbc/SQLQuery.html">SQLQuery</a> from the data and calls
+<a href="JDBCDatabaseInterface.html#execQuery(com.mckoi.database.jdbc.SQLQuery)">
+execQuery</a> on its
+<a href="JDBCDatabaseInterface.html">JDBCDatabaseInterface</a>
+(see <a href="#query_execution">Query Execution</a> above).
+The result is encoded as a
+<a href="../jdbc/QueryResponse.html">QueryResponse</a>,
+which is converted back to bytes and written back to the client.
+Note that this is all running in a
+<a href="../WorkerThread.html">WorkerThread</a>,
+so the call to DatabaseInterface.execQuery is in a WorkerThread, as required.
+
+<p>
+If there is an exception during processing of a client request,
+the message and traceback for the exception are encoded and
+returned to the client, which recognizes the packet as an exception,
+decodes the data on its side, and throws an exception in the client.
+
+</body>
+</html>

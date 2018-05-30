@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>com.mckoi.database.jdbc - JDBC interface to Mckoi</title>
+</head>
+<body>
+<p>
+The JDBC interface to Mckoi.
+
+<a name="establish_connection">
+<h3>Establishing a Connection</h3></a>
+
+<p>
+An application establishes a JDBC Connection by calling
+java.sql.DriverManager.getConnection(String url, Properties info).
+DriverManager.getConnection calls java.sql.Driver.connect, which
+figures out that the URL is a <a href="MDriver.html">Mckoi URL</a>,
+so calls
+<a href="MDriver.html">com.mckoi.database.jdbc.MDriver</a>,
+which was registered by a static initializer in
+<a href="../../JDBCDriver.html">com.mckoi.JDBCDriver</a>.
+
+<p>
+If the URL is local (embedded mode), MDriver creates an instance of
+<a href="../jdbcserver/LocalDatabaseInterface.html">
+com.mckoi.database.jdbcserver.LocalDatabaseInterface</a>,
+which in turns creates and wraps up an instance of
+<a href="../jdbcserver/JDBCDatabaseInterface.html">
+com.mckoi.database.jdbcserver.JDBCDatabaseInterface</a>,
+and calls its
+<a href="../jdbcserver/LocalDatabaseInterface.html#connectToJVM()">
+connectToJVM</a> method to initialize it.
+
+<p>
+If the URL is remote (client/server mode), MDriver creates an instance of
+<a href="TCPStreamDatabaseInterface.html">TCPStreamDatabaseInterface</a>
+and calls its
+<a href="TCPStreamDatabaseInterface.html#connectToDatabase()">
+connectToDatabase</a>
+method in order to establish a TCP connection to the
+Mckoi database server.
+For more information on how the server handles connections, see the package
+<a href="../jdbcserver/package-summary.html">com.mckoi.database.jdbcserver</a>.
+
+<p>
+In either case, the resulting
+<a href="DatabaseInterface.html">DatabaseInterface</a>
+is wrapped up in a
+<a href="MConnection.html">MConnection</a>,
+and returned to the application as an instance of java.sql.Connection.
+
+<a name="execute_query">
+<h3>Executing a Query</h3></a>
+
+<p>
+When an application calls java.sql.Connection.createStatement() on its
+<a href="MConnection.html">MConnection</a>, it gets back an instance of
+<a href="MStatement.html">MStatement</a>,
+which carries a pointer to the MConnection.
+
+<p>
+When the application calls java.sql.Statement.executeQuery(String) on
+its MStatement, Mckoi creates an <a href="SQLQuery.html">SQLQuery</a>
+from the String, creates an empty
+<a href="MResultSet.html">MResultSet</a>, then calls
+<a href="MStatement.html#executeQuery(com.mckoi.database.jdbc.SQLQuery)">
+MStatement.executeQuery</a>
+with those two objects.
+MStatement.executeQuery turns around and calls
+<a href="MConnection.html#executeQuery(com.mckoi.database.jdbc.SQLQuery, com.mckoi.database.jdbc.MResultSet)">Mconnection.executeQuery</a>,
+which calls
+<a href="DatabaseInterface.html#execQuery(com.mckoi.database.jdbc.SQLQuery)">execQuery</a> on its
+<a href="DatabaseInterface.html">DatabaseInterface</a>.
+Depending on whether the connection is local or remote,
+this call is either to
+<a href="../jdbcserver/LocalDatabaseInterface.html#execQuery(com.mckoi.database.jdbc.SQLQuery)">
+com.mckoi.database.jdbcserver.LocalDatabaseInterface.execQuery</a>
+for local connections, or to
+<a href="RemoteDatabaseInterface.html#execQuery(com.mckoi.database.jdbc.SQLQuery)">
+RemoteDatabaseInterface.execQuery</a>
+for remote connections.
+These are described more fully in the package description for
+<a href="../jdbcserver/package-summary.html">com.mckoi.database.jdbcserver</a>
+under
+<a href="../jdbcserver/package-summary.html#local_queries">Local Queries</a>
+and
+<a href="../jdbcserver/package-summary.html#remote_queries">Remote Queries</a>.
+
+</body>
+</html>
