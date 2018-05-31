@@ -30,8 +30,8 @@
   </licenses>
 
   <scm>
-    <url>http://git.mckoi.com:8900/?p=mckoisql.git</url>
-    <connection>scm:git://git.mckoi.com/git/mckoisql.git</connection>
+    <url>https://github.com/Mckoi/origsqldb</url>
+    <connection>scm:https://github.com/Mckoi/origsqldb.git</connection>
   </scm>
 
   <developers>
