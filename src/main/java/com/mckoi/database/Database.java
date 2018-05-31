@@ -2491,7 +2491,7 @@ public final class Database implements DatabaseConstants {
 
     if (url != null) {
       // Create a server side procedure for the .js file
-      //   ( This code is not included in the GPL release )
+      //   ( This code is not included in the free release )
       procedure_instance = null;
 
     }
