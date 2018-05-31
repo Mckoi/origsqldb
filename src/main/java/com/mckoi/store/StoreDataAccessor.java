@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.store.StoreDataAccessor  10 Jun 2003
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

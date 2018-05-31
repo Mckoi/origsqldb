@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.runtime.McKoiDBMain  11 Aug 2000
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

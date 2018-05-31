@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.StatementException  14 Dec 2000
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

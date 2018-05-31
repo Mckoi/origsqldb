@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.interpret.ViewManager  24 Aug 2002
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.TType  26 Jul 2002
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.DumpHelper  18 Aug 1999
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

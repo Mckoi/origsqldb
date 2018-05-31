@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.jfccontrols.SwingBlockUtil  23 Aug 2000
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

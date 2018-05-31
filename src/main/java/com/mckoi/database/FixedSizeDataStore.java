@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.FixedSizeDataStore  25 Jun 2000
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

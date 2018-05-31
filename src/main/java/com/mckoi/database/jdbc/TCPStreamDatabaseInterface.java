@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.jdbc.TCPStreamDatabaseInterface  16 Aug 2000
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

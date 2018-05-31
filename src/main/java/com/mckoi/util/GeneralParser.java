@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.util.GeneralParser  30 Oct 1998
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

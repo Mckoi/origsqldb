@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.StoreSystem  03 Feb 2003
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

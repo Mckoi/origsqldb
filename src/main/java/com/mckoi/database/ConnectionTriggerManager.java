@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.ConnectionTriggerManager  13 Mar 2003
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

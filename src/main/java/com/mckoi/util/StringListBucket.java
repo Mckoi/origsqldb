@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.util.StringListBucket  14 Apr 2000
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

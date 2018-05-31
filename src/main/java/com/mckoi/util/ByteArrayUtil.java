@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.util.ByteArrayUtil  26 Jun 2000
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

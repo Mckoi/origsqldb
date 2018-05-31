@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.TransactionSystem  24 Mar 2002
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

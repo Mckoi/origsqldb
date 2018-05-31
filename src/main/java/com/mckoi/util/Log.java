@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.util.Log  09 Jun 2000
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

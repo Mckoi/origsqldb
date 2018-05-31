@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.store.MutableArea  08 Jun 2003
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.JoiningSet  20 Sep 2000
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

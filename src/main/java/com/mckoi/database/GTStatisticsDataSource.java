@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.GTStatisticsDataSource  28 Apr 2001
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

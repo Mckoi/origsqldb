@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.RowEnumeration  05 Apr 1998
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

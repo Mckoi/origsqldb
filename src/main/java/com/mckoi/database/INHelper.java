@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.INHelper  17 Sep 1998
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

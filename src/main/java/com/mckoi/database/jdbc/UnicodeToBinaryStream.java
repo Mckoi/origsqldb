@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.jdbc.UnicodeToBinaryStream  29 Jan 2003
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.util.TimeFrame  08 Jan 2000
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.JoinedTable  20 Sep 2002
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

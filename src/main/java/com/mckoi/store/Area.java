@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.store.Area  02 Sep 2002
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

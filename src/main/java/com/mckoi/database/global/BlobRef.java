@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.global.BlobRef  20 Jan 2003
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

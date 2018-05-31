@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.FixedRecordList  11 Sep 2002
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

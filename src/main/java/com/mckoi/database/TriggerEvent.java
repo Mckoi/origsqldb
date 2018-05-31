@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.TriggerEvent  16 Feb 2001
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.global.StandardMessages  22 May 1998
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

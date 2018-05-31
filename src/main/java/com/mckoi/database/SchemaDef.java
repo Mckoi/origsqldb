@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.SchemaDef  29 Aug 2001
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

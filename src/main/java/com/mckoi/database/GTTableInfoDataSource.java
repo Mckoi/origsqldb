@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.GTTableInfoDataSource  27 Apr 2001
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

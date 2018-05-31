@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.RawDiagnosticTable  29 Nov 2000
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.interpret.Select  09 Sep 2001
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )
