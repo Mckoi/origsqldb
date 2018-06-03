@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.TBinaryType  31 Jul 2002
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

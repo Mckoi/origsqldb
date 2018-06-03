@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.global.CastHelper  11 Oct 2001
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.util.GeneralFormatter  26 Dec 1999
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.runtime.McKoiDBMain  11 Aug 2000
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )
@@ -184,8 +184,8 @@ public class McKoiDBMain {
     System.out.println("\n" +
       "  Mckoi SQL Database comes with ABSOLUTELY NO WARRANTY.\n" +
       "  This is free software, and you are welcome to redistribute it\n" +
-      "  under certain conditions.  See LICENSE.txt for details of the\n" +
-      "  GPL License.\n");
+      "  under certain conditions.  See LICENSE for details of the\n" +
+      "  Apache License.\n");
 
     // Print help?
     if (command_line.containsSwitchFrom("-h,--help,/?")) {

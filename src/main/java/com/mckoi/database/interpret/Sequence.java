@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.interpret.Sequence  07 Apr 2003
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

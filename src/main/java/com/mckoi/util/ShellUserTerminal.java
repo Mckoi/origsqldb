@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.util.ShellUserTerminal  12 Apr 2001
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

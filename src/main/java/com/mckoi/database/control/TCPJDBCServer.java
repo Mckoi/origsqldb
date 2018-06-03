@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.control.TCPJDBCServer  27 Mar 2002
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

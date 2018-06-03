@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.ProcedureName  27 Feb 2003
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

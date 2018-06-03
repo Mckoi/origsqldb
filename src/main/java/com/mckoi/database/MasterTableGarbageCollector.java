@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.MasterTableGarbageCollector  28 Nov 2000
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

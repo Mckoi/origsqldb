@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.MasterTableDataSource  19 Nov 2000
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

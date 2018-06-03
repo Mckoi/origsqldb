@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.GroupHelper  25 Jun 1999
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

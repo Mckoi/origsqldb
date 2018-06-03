@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.global.SQLTypes  01 Mar 2001
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

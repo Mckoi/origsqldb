@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.StatementTree  08 Sep 2001
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

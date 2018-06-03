@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.global.ColumnDescription  19 May 1998
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

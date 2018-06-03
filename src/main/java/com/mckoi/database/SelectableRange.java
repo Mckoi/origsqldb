@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.SelectableRange  12 Aug 2001
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

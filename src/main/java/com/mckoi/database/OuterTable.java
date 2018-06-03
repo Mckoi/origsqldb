@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.OuterTable  21 Sep 2000
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

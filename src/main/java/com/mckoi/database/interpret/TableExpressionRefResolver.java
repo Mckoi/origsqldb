@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.interpret.TableExpressionRefResolver  31 Oct 2001
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

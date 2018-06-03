@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.jdbc.DatabaseInterface  15 Aug 2000
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

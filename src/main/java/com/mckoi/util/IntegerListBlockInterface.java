@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.util.IntegerListBlockInterface  20 Sep 2001
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

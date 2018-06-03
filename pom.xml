@@ -24,14 +24,14 @@
   <licenses>
     <license>
       <name>GNU General Public License, Version 2</name>
-      <url>http://www.gnu.org/licenses/gpl-2.0.html</url>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
 
   <scm>
-    <url>http://git.mckoi.com:8900/?p=mckoisql.git</url>
-    <connection>scm:git://git.mckoi.com/git/mckoisql.git</connection>
+    <url>https://github.com/Mckoi/origsqldb</url>
+    <connection>scm:https://github.com/Mckoi/origsqldb.git</connection>
   </scm>
 
   <developers>
@@ -92,7 +92,7 @@
         <directory>${basedir}/distrib_files</directory>
         <targetPath>META-INF</targetPath>
         <includes>
-          <include>LICENSE.txt</include>
+          <include>LICENSE</include>
           <include>COPYRIGHT.txt</include>
         </includes>
       </resource>

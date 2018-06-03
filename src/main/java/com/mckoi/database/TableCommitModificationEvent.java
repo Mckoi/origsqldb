@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.TableCommitModificationEvent  25 Feb 2003
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

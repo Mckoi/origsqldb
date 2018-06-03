@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.jdbc.QueryResponse  16 Aug 2000
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

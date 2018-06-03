@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.jdbc.BinaryToUnicodeReader  01 Feb 2003
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

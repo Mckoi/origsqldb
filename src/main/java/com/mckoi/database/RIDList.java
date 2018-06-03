@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.RIDList  01 Dec 2000
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

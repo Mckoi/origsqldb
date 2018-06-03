@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.jdbc.MDriver  19 Jul 2000
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

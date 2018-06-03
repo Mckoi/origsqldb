@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.DataTable  08 Mar 1998
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

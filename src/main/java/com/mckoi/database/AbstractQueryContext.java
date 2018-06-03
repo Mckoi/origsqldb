@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.AbstractQueryContext  25 Mar 2002
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

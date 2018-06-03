@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.ViewDef  23 Aug 2002
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

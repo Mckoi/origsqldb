@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.global.ObjectTranslator  09 Feb 2001
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.control.DefaultDBConfig  29 Mar 2002
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

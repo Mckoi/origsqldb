@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.util.SortUtil  29 Mar 1998
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

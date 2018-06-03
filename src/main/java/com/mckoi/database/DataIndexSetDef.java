@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.DataIndexSetDef  08 Sep 2002
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )

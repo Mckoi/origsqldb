@@ -1,4 +1,4 @@
-**
+/**
  * com.mckoi.database.TableFunctions  08 Nov 2001
  *
  * Mckoi SQL Database ( http://www.mckoi.com/database )
